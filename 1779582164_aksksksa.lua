@@ -1,0 +1,15 @@
+amamakkmamakk amamakkmamakk jakakakakakaka
+amakakakmaa
+amamakkjakakakakakaka
+amakakakmaa
+amamakkjakakakakakaka
+amakakakmaa
+amamakkjakakakakakaka
+amakakakmaa
+amamakkjakakakakakaka
+amakakakmaa
+amamakkjakakakakakaka
+amakakakmaa
+amamakk
+amakakakmaa
+amamakkmamakk
