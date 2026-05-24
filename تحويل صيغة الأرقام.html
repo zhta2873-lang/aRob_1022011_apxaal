@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>تحويل صيغة الأرقام</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif;}
+body{min-height:100vh;background:#0a0c15;padding:1.5rem;position:relative;overflow-x:hidden;}
+.math-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 20% 30%,#0f1222,#03050b);}
+.math-bg span{position:absolute;color:rgba(0,255,255,0.08);font-size:1.4rem;font-family:monospace;white-space:nowrap;font-weight:bold;animation:floatMath 18s linear infinite;text-shadow:0 0 5px cyan;}
+@keyframes floatMath{0%{transform:translateY(110vh) rotate(0deg);opacity:0.2;}50%{opacity:0.5;}100%{transform:translateY(-20vh) rotate(360deg);opacity:0;}}
+.glow-number{position:fixed;color:rgba(255,100,0,0.15);font-size:2rem;font-weight:bold;font-family:monospace;animation:glowDrift 22s infinite alternate;pointer-events:none;z-index:0;}
+@keyframes glowDrift{0%{transform:translateX(-5%) translateY(-5%) scale(1);opacity:0.1;}100%{transform:translateX(5%) translateY(5%) scale(1.3);opacity:0.25;}}
+.container{max-width:1400px;margin:0 auto;position:relative;z-index:10;backdrop-filter:blur(2px);}
+.hero{text-align:center;margin-bottom:2rem;}
+.glow-title{font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#e11d48,#be123c);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 12px rgba(255,255,255,0.4);letter-spacing:-0.5px;}
+.signature{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:8px 24px;background:rgba(0,0,0,0.45);backdrop-filter:blur(12px);border-radius:60px;font-size:1.2rem;font-weight:700;font-family:monospace;color:#ff9f4a;text-shadow:0 0 6px #ff9100;border:1px solid rgba(255,160,0,0.7);box-shadow:0 0 20px rgba(255,140,0,0.4);animation:softGlowMove 3s infinite alternate;}
+@keyframes softGlowMove{0%{box-shadow:0 0 8px #ffaa33;transform:scale(1);}100%{box-shadow:0 0 28px #ff9900;transform:scale(1.02);}}
+.input-area{background:rgba(15,23,42,0.6);backdrop-filter:blur(12px);border-radius:2.5rem;padding:0.8rem;margin-bottom:2.2rem;border:1px solid rgba(56,189,248,0.4);box-shadow:0 15px 35px rgba(0,0,0,0.5);}
+textarea{width:100%;min-height:130px;background:#0c1022cc;border:2px solid #2d3e6e;border-radius:2rem;padding:1.2rem;font-size:1.2rem;font-family:'Courier New',monospace;color:#eef4ff;resize:vertical;outline:none;transition:0.2s;}
+textarea:focus{border-color:#38bdf8;box-shadow:0 0 22px rgba(56,189,248,0.6);background:#0b1022;}
+.grid-system{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.6rem;margin-top:0.8rem;}
+.neo-card{background:rgba(12,18,34,0.75);backdrop-filter:blur(8px);border-radius:1.8rem;padding:1.2rem;transition:all 0.25s ease;border:1px solid rgba(100,116,139,0.4);box-shadow:0 8px 20px rgba(0,0,0,0.4);position:relative;overflow:hidden;}
+.neo-card::before{content:'';position:absolute;top:0;right:0;width:5px;height:100%;background:linear-gradient(to bottom,#f97316,#facc15);border-radius:5px 0 0 5px;}
+.neo-card:hover{transform:translateY(-6px);border-color:rgba(249,115,22,0.7);box-shadow:0 18px 35px rgba(0,0,0,0.5),0 0 12px rgba(249,115,22,0.4);}
+.card-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1rem;border-bottom:1px dashed #facc1544;padding-bottom:8px;}
+.card-title{font-size:1.35rem;font-weight:800;background:linear-gradient(145deg,#facc15,#ff8c42);background-clip:text;-webkit-background-clip:text;color:transparent;letter-spacing:1px;}
+.badge-type{font-size:0.7rem;background:#1e293b;padding:3px 10px;border-radius:30px;color:#facc15;font-family:monospace;}
+.result-value{font-size:1rem;word-break:break-all;background:#050a17a0;padding:12px;border-radius:1.2rem;font-family:'Fira Code',monospace;direction:ltr;text-align:left;margin:10px 0 12px;color:#f1f5f9;border:1px solid #334155;max-height:130px;overflow-y:auto;}
+.copy-neon{background:linear-gradient(95deg,#1f2a44,#0f172a);border:1px solid #facc15;color:#ffd966;padding:8px 14px;border-radius:2rem;font-weight:bold;cursor:pointer;transition:0.2s;font-size:0.8rem;display:inline-flex;align-items:center;gap:6px;}
+.copy-neon:hover{background:#ff9800cc;color:#0a0f1c;transform:scale(1.02);box-shadow:0 0 12px #ffa500;}
+.footer-lux{margin-top:3rem;text-align:center;padding:1.5rem 0.5rem;border-top:1px solid rgba(250,204,21,0.3);}
+.signature-bottom{display:inline-flex;align-items:center;gap:12px;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);padding:10px 28px;border-radius:60px;font-size:1.25rem;font-weight:bold;color:#fb923c;text-shadow:0 0 5px #ffae42;border:1px solid #ffb347;animation:borderPulse 2s infinite alternate;}
+@keyframes borderPulse{0%{border-color:#ffb347;}100%{border-color:#ffdd77;}}
+.small-note{color:#94a3b8;margin-top:1rem;font-size:0.75rem;}
+@media(max-width:680px){.glow-title{font-size:1.9rem;}.grid-system{gap:1rem;}.neo-card{padding:1rem;}}
+</style>
+</head>
+<body>
+<div class="math-bg" id="animatedMath"></div>
+<div id="floatingGlowNumbers"></div>
+<div class="container">
+  <div class="hero">
+    <h1 class="glow-title">تحويل صيغة الأرقام</h1>
+    <div class="signature"><span>‍</span> سيوفي <span style="color:#ffb347;">@YS_YSY</span> <span></span></div>
+  </div>
+  <div class="input-area">
+    <textarea id="inputData" placeholder="اكتب الرقم بأي صيغة" dir="ltr"></textarea>
+  </div>
+  <div class="grid-system" id="resultsGrid"></div>
+  <div class="footer-lux">
+    <div class="signature-bottom"><span></span> الـمـبـرمـج سـيـوفـي @YS_YSY <span></span></div>
+    <div class="small-note">أخـوڪـم سـيـوفـي يـرسـل تـحـيـاتـه </div>
+  </div>
+</div>
+<script>
+const cardDefinitions=[
+  {id:"decimal",label:"Decimal (عشري)",type:"number"},
+  {id:"hex",label:"HEX (سداسي عشر)",type:"hex"},
+  {id:"binary",label:"Binary (ثنائي)",type:"binary"},
+  {id:"octal",label:"Octal (ثماني)",type:"octal"},
+  {id:"base64",label:"Base64",type:"text"},
+  {id:"unicodeEsc",label:"Unicode Escape",type:"text"},
+  {id:"utf8Bytes",label:"UTF-8 Bytes (HEX)",type:"text"},
+  {id:"floatInt",label:"Float / Integer",type:"mixed"},
+  {id:"textToHex",label:"نص ⇄ HEX (Spaced)",type:"text"},
+  {id:"unixTime",label:"Unix Timestamp (now)",type:"system"}
+];
+const container=document.getElementById("resultsGrid");
+cardDefinitions.forEach(def=>{
+  const card=document.createElement("div");
+  card.className="neo-card";
+  card.id=`card-${def.id}`;
+  card.innerHTML=`
+    <div class="card-header">
+      <div class="card-title">${def.label}</div>
+      <div class="badge-type">${def.type}</div>
+    </div>
+    <div class="result-value" id="res-${def.id}">—</div>
+    <button class="copy-neon" data-target="res-${def.id}">📋 نسخ</button>
+  `;
+  container.appendChild(card);
+});
+document.querySelectorAll('.copy-neon').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const targetId=btn.getAttribute('data-target');
+    const elem=document.getElementById(targetId);
+    if(elem&&elem.innerText&&elem.innerText!=="—"){
+      navigator.clipboard.writeText(elem.innerText);
+      const originalText=btn.innerHTML;
+      btn.innerHTML=" تـم نـسـخ الـنـص حـبـيـبـي ";
+      setTimeout(()=>{btn.innerHTML=originalText;},1200);
+    }else alert("لا توجد قيمة لنسخها");
+  });
+});
+function parseNumberAccurate(raw){
+  let str=raw.trim();
+  if(str==="")return null;
+  try{
+    if(str.toLowerCase().startsWith('0x'))return BigInt(str);
+    if(str.toLowerCase().startsWith('0b'))return BigInt(str);
+    if(str.toLowerCase().startsWith('0o'))return BigInt(str);
+    if(/^[01]+$/.test(str)&&str.length>1)return BigInt(`0b${str}`);
+    if(/^0[0-7]+$/.test(str))return BigInt(`0o${str.slice(1)}`);
+    if(/^\d+$/.test(str))return BigInt(str);
+    if(/^[0-9A-Fa-f]+$/.test(str)&&str.length>2)return BigInt(`0x${str}`);
+    return null;
+  }catch(e){return null;}
+}
+function textToHexSpaced(txt){
+  let res=[];
+  for(let i=0;i<txt.length;i++)res.push(txt.charCodeAt(i).toString(16).padStart(2,'0'));
+  return res.join(' ').toUpperCase();
+}
+function performFullConversion(){
+  let rawInput=document.getElementById("inputData").value;
+  if(rawInput.trim()===""){
+    cardDefinitions.forEach(def=>{document.getElementById(`res-${def.id}`).innerText="—";});
+    return;
+  }
+  let bigIntVal=parseNumberAccurate(rawInput);
+  let isNumeric=(bigIntVal!==null);
+  let inputString=rawInput;
+  let decimalStr="—",hexStr="—",binaryStr="—",octalStr="—",floatIntStr="—";
+  if(isNumeric){
+    try{
+      decimalStr=bigIntVal.toString(10);
+      hexStr="0x"+bigIntVal.toString(16).toUpperCase();
+      binaryStr=bigIntVal.toString(2);
+      octalStr=bigIntVal.toString(8);
+      floatIntStr=`عدد صحيح (BigInt): ${decimalStr} | Float تقريبي: ${Number(bigIntVal).toFixed(2)}`;
+    }catch(e){}
+  }else{
+    let floatNum=parseFloat(rawInput);
+    if(!isNaN(floatNum)&&rawInput.includes('.')){
+      floatIntStr=`Float: ${floatNum} | Int: ${Math.floor(floatNum)}`;
+      let intPart=Math.floor(floatNum);
+      if(intPart.toString()!=="NaN"){
+        decimalStr=intPart.toString();
+        hexStr="0x"+intPart.toString(16).toUpperCase();
+        binaryStr=intPart.toString(2);
+        octalStr=intPart.toString(8);
+      }
+    }else floatIntStr="ليس رقماً صالحاً (نص)";
+  }
+  document.getElementById("res-decimal").innerText=decimalStr;
+  document.getElementById("res-hex").innerText=hexStr;
+  document.getElementById("res-binary").innerText=binaryStr;
+  document.getElementById("res-octal").innerText=octalStr;
+  document.getElementById("res-floatInt").innerText=floatIntStr;
+  try{document.getElementById("res-base64").innerText=btoa(unescape(encodeURIComponent(inputString)));}catch(e){document.getElementById("res-base64").innerText="خطأ";}
+  try{let utf8Array=new TextEncoder().encode(inputString);document.getElementById("res-utf8Bytes").innerText=Array.from(utf8Array).map(b=>b.toString(16).padStart(2,'0')).join(' ').toUpperCase();}catch(e){document.getElementById("res-utf8Bytes").innerText="خطأ";}
+  try{document.getElementById("res-textToHex").innerText=textToHexSpaced(inputString);}catch(e){document.getElementById("res-textToHex").innerText="—";}
+  try{let unicodeEscaped="";for(let ch of inputString){let code=ch.codePointAt(0);if(code>0xFFFF)unicodeEscaped+=`\\u{${code.toString(16)}}`;else unicodeEscaped+=`\\u${code.toString(16).padStart(4,'0')}`;}document.getElementById("res-unicodeEsc").innerText=unicodeEscaped;}catch(e){document.getElementById("res-unicodeEsc").innerText="—";}
+  document.getElementById("res-unixTime").innerText=Math.floor(Date.now()/1000);
+}
+document.getElementById("inputData").addEventListener("input",()=>performFullConversion());
+function initAnimatedBackground(){
+  const bgContainer=document.getElementById("animatedMath");
+  const items=['+','-','×','÷','√','∑','@YS_YSY','≠','≈','%','SEOFEE','log','0x7F','0b1010','FF','10²','2ⁿ','0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+  for(let i=0;i<95;i++){
+    const span=document.createElement('span');
+    span.innerText=items[Math.floor(Math.random()*items.length)];
+    span.style.fontSize=`${0.8+Math.random()*2}rem`;
+    span.style.left=`${Math.random()*100}%`;
+    span.style.animationDuration=`${12+Math.random()*20}s`;
+    span.style.animationDelay=`${Math.random()*15}s`;
+    span.style.opacity=0.1+Math.random()*0.35;
+    span.style.color=`rgba(255,${100+Math.random()*100},50,0.2)`;
+    bgContainer.appendChild(span);
+  }
+  const glowDiv=document.getElementById("floatingGlowNumbers");
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');
+    el.className='glow-number';
+    el.innerText=Math.random()>0.5?`0x${Math.floor(Math.random()*255).toString(16)}`:`${Math.floor(Math.random()*9999)}`;
+    el.style.left=`${Math.random()*100}%`;
+    el.style.top=`${Math.random()*100}%`;
+    el.style.animationDuration=`${15+Math.random()*25}s`;
+    el.style.fontSize=`${1.2+Math.random()*2.2}rem`;
+    glowDiv.appendChild(el);
+  }
+}
+setInterval(()=>{let u=document.getElementById("res-unixTime");if(u&&document.getElementById("inputData").value.trim()!=="")u.innerText=Math.floor(Date.now()/1000);},1000);
+initAnimatedBackground();
+performFullConversion();
+</script>
+</body>
+</html>
